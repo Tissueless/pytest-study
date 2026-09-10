@@ -82,4 +82,4 @@ def test_user_profile(user_profile):
     assert user_profile["role"] == "user"
 
 def test_api_client(api_client):
-    assert api_client.base_url == "https://example.com"
+    assert api_client.base_url == "https://jsonplaceholder.typicode.com"

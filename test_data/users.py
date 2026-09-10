@@ -11,5 +11,15 @@ USERS = {
         "name": "admin",
         "age": 40,
         "role": "admin"
-    }
+    },
 }
+CREATE_USER_PAYLOAD = {
+    "name": "tester",
+    "username": "qa_tester"
+}
+
+UPDATE_USER_PAYLOAD = {
+    "name": "updated_tester",
+    "username": "updated_qa"
+}
+

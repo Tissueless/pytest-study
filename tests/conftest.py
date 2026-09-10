@@ -1,6 +1,8 @@
+import os
 import pytest
+from config import get_base_url
 
-
+from api.client import APIClient
 
 from test_data.users import USERS
 
@@ -80,13 +82,23 @@ def api_client(base_url):
 
     return session
 
+# @pytest.fixture
+# def api_base_url():
+#     return os.getenv(
+#         "API_BASE_URL",
+#         "https://jsonplaceholder.typicode.com"
+#     )
+# from api.client import APIClient
+
+
+@pytest.fixture
+def api_client(api_base_url, auth_token):
+    return APIClient(api_base_url, auth_token)
+
+@pytest.fixture
+def auth_token():
+    return "test-token-123"
+
 @pytest.fixture
 def api_base_url():
-    return "https://jsonplaceholder.typicode.com"
-
-from api.client import APIClient
-
-
-@pytest.fixture
-def api_client(api_base_url):
-    return APIClient(api_base_url)
+    return get_base_url()
