@@ -97,7 +97,7 @@ def api_client(api_base_url, auth_token):
 
 @pytest.fixture
 def auth_token():
-    return "test-token-123"
+    return os.getenv("API_TOKEN", "test-token-123")
 
 @pytest.fixture
 def api_base_url():
