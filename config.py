@@ -17,3 +17,7 @@ def get_base_url():
         )
 
     return BASE_URLS[environment]
+
+# config.py
+
+BASE_URL = "https://jsonplaceholder.typicode.com"

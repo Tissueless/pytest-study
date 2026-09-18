@@ -1,10 +1,16 @@
 import os
 import pytest
-from config import get_base_url
+from config import get_base_url, BASE_URL
 
 from api.client import APIClient
 
-from test_data.users import USERS
+from test_data.users import *
+
+import requests
+
+
+
+
 
 @pytest.fixture
 def user():
@@ -68,37 +74,31 @@ def user_name():
 def user_profile(user_name):
     return {
         "name": user_name,
-        "role": "user"
+        "role": "user",
+        "active": True
     }
 
-
-
-import requests
-
-@pytest.fixture
-def api_client(base_url):
-    session = requests.Session()
-    session.base_url = base_url
-
-    return session
-
-# @pytest.fixture
-# def api_base_url():
-#     return os.getenv(
-#         "API_BASE_URL",
-#         "https://jsonplaceholder.typicode.com"
-#     )
-# from api.client import APIClient
-
-
-@pytest.fixture
+@pytest.fixture(scope="module")
 def api_client(api_base_url, auth_token):
+    print(">>> api_client fixture 실행")
     return APIClient(api_base_url, auth_token)
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def auth_token():
-    return os.getenv("API_TOKEN", "test-token-123")
+    return os.getenv("API_TOKEN", "my-test-token")
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def api_base_url():
     return get_base_url()
+
+@pytest.fixture
+def create_user_payloads():
+    return [
+        CREATE_USER_PAYLOAD,
+        CREATE_USER_PAYLOAD_2,
+    ]
+
+@pytest.fixture(scope="session")
+def session_test():
+    print(">>> SESSION FIXTURE 실행")
+    return "session"

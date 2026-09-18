@@ -19,19 +19,30 @@ class APIClient:
 
 
     def request(self, method, endpoint, **kwargs):
-        return self.session.request(
+        response = self.session.request(
             method,
             f"{self.base_url}{endpoint}",
             **kwargs
         )
+        
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError:
+            raise requests.exceptions.HTTPError(
+                f"{method} {endpoint} failed with status {response.status_code}"
+    )
+        return response
+
     def get_user(self, user_id):
-        return self.session.get(
-            f"{self.base_url}/users/{user_id}"
+        return self.request(
+            "GET",
+            f"/users/{user_id}",
         )
 
     def create_user(self, payload):
-        return self.session.post(
-            f"{self.base_url}/users",
+        return self.request(
+            "POST",
+            "/users",
             json=payload
         )
     def update_user(self, user_id, payload):

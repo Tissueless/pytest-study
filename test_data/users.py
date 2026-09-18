@@ -23,3 +23,9 @@ UPDATE_USER_PAYLOAD = {
     "username": "updated_qa"
 }
 
+CREATE_USER_PAYLOAD_2 = {
+    "name"     : "test_user_2",
+    "username" : "testuser2",
+    "email"    : "test2@example.com"
+}
+    
